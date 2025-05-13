@@ -2,6 +2,7 @@
   "name": "family-tree-app",
   "version": "1.0.0",
   "scripts": {
+    "build": "vue-cli-service build",
     "dev": "vercel dev"
   },
   "dependencies": {
@@ -9,6 +10,7 @@
     "graphviz": "^0.0.9"
   },
   "devDependencies": {
+    "@vue/cli-service": "^5.0.0",
     "vercel": "^28.0.0"
   }
 }

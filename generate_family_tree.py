@@ -60,6 +60,9 @@ def add_nodes_edges(graph, family_dict, parent=None):
         # Recurse for children
         add_nodes_edges(graph, children, label)
 
+import time
+import datetime
+
 def main():
     # Read family data from file
     with open('poparan.txt', 'r', encoding='utf-8') as f:
@@ -67,13 +70,26 @@ def main():
 
     family_tree = parse_family_data(lines)
 
+    def render_with_retry(dot, filename, max_retries=5, delay=1):
+        for attempt in range(max_retries):
+            try:
+                dot.render(filename=filename, cleanup=True)
+                print(f'Image generated: {filename}')
+                return True
+            except PermissionError as e:
+                print(f'PermissionError on {filename}, retrying {attempt + 1}/{max_retries}...')
+                time.sleep(delay)
+        print(f'Failed to generate image after {max_retries} attempts: {filename}')
+        return False
+
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+
     # Create a graphviz Digraph for JPEG landscape
     dot_jpeg = graphviz.Digraph(comment='Family Tree Landscape', format='png')
     dot_jpeg.attr(rankdir='LR', dpi='600', size='11.69,8.27!')  # A4 landscape size in inches, no compression
     add_nodes_edges(dot_jpeg, family_tree)
-    output_jpeg = 'family_tree_landscape.png'
-    dot_jpeg.render(filename='public/family_tree_landscape', cleanup=True)
-    print(f'Family tree landscape image generated: {output_jpeg}')
+    output_jpeg = f'family_tree_landscape_{timestamp}.png'
+    render_with_retry(dot_jpeg, filename=f'public/family_tree_landscape_{timestamp}')
 
     # Create a graphviz Digraph for PDF landscape
     dot_pdf = graphviz.Digraph(comment='Family Tree Landscape', format='pdf')
@@ -87,9 +103,8 @@ def main():
     dot_jpeg_v = graphviz.Digraph(comment='Family Tree Portrait', format='png')
     dot_jpeg_v.attr(rankdir='TB', dpi='600', size='8.27,11.69!')  # A4 portrait size in inches, no compression
     add_nodes_edges(dot_jpeg_v, family_tree)
-    output_jpeg_v = 'family_tree_portrait.png'
-    dot_jpeg_v.render(filename='public/family_tree_portrait', cleanup=True)
-    print(f'Family tree portrait image generated: {output_jpeg_v}')
+    output_jpeg_v = f'family_tree_portrait_{timestamp}.png'
+    render_with_retry(dot_jpeg_v, filename=f'public/family_tree_portrait_{timestamp}')
 
     # Create a graphviz Digraph for PDF portrait
     dot_pdf_v = graphviz.Digraph(comment='Family Tree Portrait', format='pdf')

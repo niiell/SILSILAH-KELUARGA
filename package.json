@@ -1,16 +1,14 @@
 {
-  "name": "family-tree-website",
+  "name": "family-tree-app",
   "version": "1.0.0",
-  "description": "Dynamic family tree website with Vue.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev": "vercel dev"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "vue": "^3.2.0"
+    "express": "^4.17.1",
+    "graphviz": "^0.0.9"
   },
   "devDependencies": {
-    "@vue/cli-service": "^5.0.0"
+    "vercel": "^28.0.0"
   }
 }

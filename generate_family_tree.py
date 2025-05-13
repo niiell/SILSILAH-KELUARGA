@@ -68,11 +68,11 @@ def main():
     family_tree = parse_family_data(lines)
 
     # Create a graphviz Digraph for JPEG landscape
-    dot_jpeg = graphviz.Digraph(comment='Family Tree Landscape', format='jpeg')
+    dot_jpeg = graphviz.Digraph(comment='Family Tree Landscape', format='png')
     dot_jpeg.attr(rankdir='LR', dpi='600', size='11.69,8.27!')  # A4 landscape size in inches, no compression
     add_nodes_edges(dot_jpeg, family_tree)
-    output_jpeg = 'family_tree_landscape.jpeg'
-    dot_jpeg.render(filename='family_tree_landscape', cleanup=True)
+    output_jpeg = 'family_tree_landscape.png'
+    dot_jpeg.render(filename='public/family_tree_landscape', cleanup=True)
     print(f'Family tree landscape image generated: {output_jpeg}')
 
     # Create a graphviz Digraph for PDF landscape
@@ -84,11 +84,11 @@ def main():
     print(f'Family tree landscape PDF generated: {output_pdf}')
 
     # Create a graphviz Digraph for JPEG portrait
-    dot_jpeg_v = graphviz.Digraph(comment='Family Tree Portrait', format='jpeg')
+    dot_jpeg_v = graphviz.Digraph(comment='Family Tree Portrait', format='png')
     dot_jpeg_v.attr(rankdir='TB', dpi='600', size='8.27,11.69!')  # A4 portrait size in inches, no compression
     add_nodes_edges(dot_jpeg_v, family_tree)
-    output_jpeg_v = 'family_tree_portrait.jpeg'
-    dot_jpeg_v.render(filename='family_tree_portrait', cleanup=True)
+    output_jpeg_v = 'family_tree_portrait.png'
+    dot_jpeg_v.render(filename='public/family_tree_portrait', cleanup=True)
     print(f'Family tree portrait image generated: {output_jpeg_v}')
 
     # Create a graphviz Digraph for PDF portrait

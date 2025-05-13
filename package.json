@@ -1,0 +1,16 @@
+{
+  "name": "family-tree-website",
+  "version": "1.0.0",
+  "description": "Dynamic family tree website with Vue.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "vue": "^3.2.0"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.0"
+  }
+}
